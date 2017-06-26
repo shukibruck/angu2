@@ -5,6 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const Observable_1 = require("rxjs/Observable");
@@ -17,22 +20,24 @@ let Timer = class Timer {
     }
     ngOnInit() {
         this.unSub = this.start.subscribe(t => this.timer = t);
+        console.log("nume  " + this.id);
     }
     kill(status) {
         if (status == "true") {
-            console.log(status);
             this.unSub.unsubscribe();
         }
         else if (status == "false") {
-            console.log(status);
             this.unSub = this.start.subscribe(t => this.timer = t);
         }
-        console.log(this.subjectName);
     }
     clear() {
         this.subjectName = "";
     }
 };
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Number)
+], Timer.prototype, "id", void 0);
 Timer = __decorate([
     core_1.Component({
         selector: 'NgTimer',

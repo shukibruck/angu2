@@ -1,4 +1,4 @@
-﻿import { Component, ViewEncapsulation } from '@angular/core';
+﻿import { Component, ViewEncapsulation, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx'; 
 
@@ -13,21 +13,20 @@ export class Timer {
     start = Observable.timer(0, 1000);
     unSub;
     subjectName: string = "";
+    @Input() id: number;
 
     ngOnInit() {
         
-       this.unSub = this.start.subscribe(t => this.timer = t);
+        this.unSub = this.start.subscribe(t => this.timer = t);
+        console.log("nume  " + this.id);
     }
 
     kill(status: string) {
         if (status == "true") {
-            console.log(status);
             this.unSub.unsubscribe();
         } else if (status == "false") {
-            console.log(status);
             this.unSub = this.start.subscribe(t => this.timer = t);
         }
-        console.log(this.subjectName);
     }
 
     clear(): void {

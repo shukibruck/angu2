@@ -20,4 +20,13 @@ export class Task {
     public Id: number;
     public ListId: number;
     public Text: string;
+
+    constructor(Id: number,
+        ListId: number,
+        Text: string) {
+        this.ListId = ListId;
+        this.Id = Id;
+        this.Text = Text;
+
+    }
 }

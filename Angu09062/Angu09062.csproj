@@ -316,6 +316,7 @@
     <TypeScriptCompile Include="Scripts\app\main.ts" />
     <TypeScriptCompile Include="Scripts\app\timer\LeftPanel\leftpanel.component.ts" />
     <TypeScriptCompile Include="Scripts\app\timer\LeftPanel\leftpanel.module.ts" />
+    <TypeScriptCompile Include="Scripts\app\timer\listValues\listFilter.pipe.ts" />
     <TypeScriptCompile Include="Scripts\app\timer\listValues\listValues.component.ts" />
     <TypeScriptCompile Include="Scripts\app\timer\timer.component.ts" />
     <TypeScriptCompile Include="Scripts\app\timer\timer.module.ts" />

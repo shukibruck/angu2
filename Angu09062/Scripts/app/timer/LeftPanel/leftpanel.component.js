@@ -18,8 +18,9 @@ let LeftPanel = class LeftPanel {
         this.stateNow = 'show';
         this.tempDiv = 1;
         this.getData = [];
+        //@Output() id: EventEmitter<number> = new EventEmitter<number>();
+        this.id = 1;
         this.service.allTasks().subscribe(data => this.getData = data, error => alert(error), () => {
-            console.log(this.getData.length);
             this.listCount = Array(this.getData.length).fill(1).map((x, i) => i);
         });
     }
@@ -28,6 +29,8 @@ let LeftPanel = class LeftPanel {
     }
     changeNumber(num) {
         this.tempDiv = num;
+        this.id = num;
+        console.log(this.id);
     }
     state(divId) {
         if (divId == this.tempDiv) {

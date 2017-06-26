@@ -27,6 +27,11 @@ HttpService = __decorate([
 ], HttpService);
 exports.HttpService = HttpService;
 class Task {
+    constructor(Id, ListId, Text) {
+        this.ListId = ListId;
+        this.Id = Id;
+        this.Text = Text;
+    }
 }
 exports.Task = Task;
 //# sourceMappingURL=Http.service.js.map

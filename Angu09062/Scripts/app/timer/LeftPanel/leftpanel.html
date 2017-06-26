@@ -44,11 +44,8 @@
 
     <a href="#" *ngFor="let item of listCount" (click)="changeNumber(item+1)">{{item + 1}}</a>
 </div>
-<div>
-    <a href="#" *ngFor="let task of getData">{{task.Text}}</a>
-</div>
 <div class="btn btn-default" style="margin-bottom: 8px; position:absolute;" (click)="toggle()">OpenMenu</div>
 <div *ngFor="let item of listCount" [@toggle]="state(item+1)">
     <h3><b>Lista {{item+1}}</b></h3>
-    <NgTimer id="ngtimer1" #ngtimer1></NgTimer>
+    <NgTimer id="ngtimer1" #ngtimer1 [id]="id"></NgTimer>
 </div>

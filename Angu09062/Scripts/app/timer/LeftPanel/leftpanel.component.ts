@@ -1,4 +1,4 @@
-﻿import { Component, ViewEncapsulation, trigger, state, style, transition, animate, Inject } from '@angular/core'
+﻿import { Component, ViewEncapsulation, trigger, state, style, transition, animate, Output, EventEmitter } from '@angular/core'
 import { HttpService, Task } from "../Http.service"
 
 @
@@ -30,12 +30,12 @@ export class LeftPanel {
     tempDiv: number = 1;
     listCount: Array<number>;
     getData: Task[] = [];
+    id: number = 1;
 
     constructor(private service: HttpService) {
         this.service.allTasks().subscribe(data => this.getData = data,
             error => alert(error),
             () => {
-                console.log(this.getData.length);
                 this.listCount = Array(this.getData.length).fill(1).map((x, i) => i);
             }
         );
@@ -46,10 +46,10 @@ export class LeftPanel {
         this.toggleState = this.toggleState === 'in' ? 'out' : 'in';
     }
 
-
-
     changeNumber(num: number) {
         this.tempDiv = num;
+        this.id = num;
+        console.log(this.id);
     }
 
     state(divId: number): string {

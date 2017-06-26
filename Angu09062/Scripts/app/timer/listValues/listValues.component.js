@@ -10,12 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
+const Http_service_1 = require("../Http.service");
 let ListValues = class ListValues {
-    constructor() {
+    constructor(service) {
+        this.service = service;
         this.list = [];
+        this.listAfterFilter = [];
         this.restart = new core_1.EventEmitter();
         this.added = new core_1.EventEmitter();
         this.status = "true";
+        this.service.allTasks().subscribe(data => this.list = data, error => alert(error), () => {
+            console.log(this.list);
+        });
+    }
+    ngOnInit() {
+        this.listAfterFilter = this.list.filter(x => x.ListId == this.id);
+    }
+    ngOnChanges() {
+        this.listAfterFilter = this.list.filter(x => x.ListId == this.id);
+        console.log(this.listAfterFilter);
+        console.log("idee " + this.id);
     }
     restartCounter() {
         if (this.status == "true") {
@@ -26,9 +40,10 @@ let ListValues = class ListValues {
             this.restart.emit(this.status);
             this.status = "true";
         }
+        console.log("->>>" + this.id);
     }
     addToList() {
-        this.list.push(new Task(this.topic, this.val));
+        //this.list.push(new Task(this.topic, this.val));
         this.added.emit(null);
     }
 };
@@ -41,6 +56,10 @@ __decorate([
     __metadata("design:type", Number)
 ], ListValues.prototype, "val", void 0);
 __decorate([
+    core_1.Input(),
+    __metadata("design:type", Number)
+], ListValues.prototype, "id", void 0);
+__decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], ListValues.prototype, "restart", void 0);
@@ -52,16 +71,10 @@ ListValues = __decorate([
     core_1.Component({
         selector: 'ng-listValues',
         templateUrl: '/Scripts/app/timer/listValues/listValues.html',
-        encapsulation: core_1.ViewEncapsulation.None
+        encapsulation: core_1.ViewEncapsulation.None,
+        providers: [Http_service_1.HttpService]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [Http_service_1.HttpService])
 ], ListValues);
 exports.ListValues = ListValues;
-class Task {
-    constructor(topic, time) {
-        this.topic = topic;
-        this.time = time;
-    }
-}
-exports.Task = Task;
 //# sourceMappingURL=listValues.component.js.map
