@@ -1,0 +1,10 @@
+﻿<div class="row">
+    <div class="col-md-3">
+        <input type="text" class="form-control" [(ngModel)] ="subjectName" id="subjestName"/>
+    </div>
+    <div class="col-md-1">
+        <h4>{{timer}}</h4>
+    </div>
+</div>
+<br/>
+<ng-listValues [val]="timer" [topic]="subjectName" (added)="clear()"  (restart)="kill($event)"></ng-listValues>

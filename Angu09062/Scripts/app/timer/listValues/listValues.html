@@ -1,0 +1,6 @@
+﻿<div class="btn-group" style="margin-bottom: 10px">
+    <button class="btn btn-primary" (click)="addToList()">Stop</button>
+    <button class="btn btn-danger" (click)="restartCounter()">Restart</button>
+</div>
+<br/>
+<div class="well" *ngFor="let task of list">{{task.topic}} {{task.time}}</div>
