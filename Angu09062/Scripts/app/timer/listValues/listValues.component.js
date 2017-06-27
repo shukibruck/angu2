@@ -23,13 +23,17 @@ let ListValues = class ListValues {
             console.log(this.list);
         });
     }
+    addEvent() {
+        let task = new Http_service_1.Task(null, 3, 'text');
+        this.service.addTask(task).subscribe(data => console.log("udalo się " + data), error => console.log("chuja sie udalo" + error), () => {
+            console.log(this.text);
+        });
+    }
     ngOnInit() {
         this.listAfterFilter = this.list.filter(x => x.ListId == this.id);
     }
     ngOnChanges() {
         this.listAfterFilter = this.list.filter(x => x.ListId == this.id);
-        console.log(this.listAfterFilter);
-        console.log("idee " + this.id);
     }
     restartCounter() {
         if (this.status == "true") {
@@ -40,10 +44,16 @@ let ListValues = class ListValues {
             this.restart.emit(this.status);
             this.status = "true";
         }
-        console.log("->>>" + this.id);
     }
     addToList() {
-        //this.list.push(new Task(this.topic, this.val));
+        let task = new Http_service_1.Task(null, this.id, this.topic);
+        this.list.push(task);
+        this.service.addTask(new Http_service_1.Task(null, this.id, this.topic)).subscribe(data => console.log("udalo się " + data), error => console.log("chuja sie udalo" + error), () => {
+            //console.log("topic" + this.topic);
+            //let task = new Task(null, this.id, this.topic);
+            //this.list.push(task);
+            //console.log(task);
+        });
         this.added.emit(null);
     }
 };

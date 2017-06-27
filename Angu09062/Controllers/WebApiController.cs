@@ -24,6 +24,24 @@ namespace Angu09062.Controllers
 
             return Ok(result);
         }
+        [HttpPost]
+        [Route("WebApi/AddEvent")]
+        public IHttpActionResult AddEvents([FromBody] Tasks task)
+        {
+            int result;
+            using (var contex = new RepositoryContex())
+            {
+                contex.Tasks.Add(task);
+
+                result = contex.SaveChanges();
+            }
+
+            if (result == 1)
+            {
+                return Ok(result);
+            }
+            return BadRequest("Nie mogło dodać do bazy " + result);
+        }
 
 
     }

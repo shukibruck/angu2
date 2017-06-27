@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_1 = require("@angular/http");
 const core_1 = require("@angular/core");
+const http_2 = require("@angular/http");
 let HttpService = class HttpService {
     constructor(http) {
         this.http = http;
@@ -19,6 +20,12 @@ let HttpService = class HttpService {
     allTasks() {
         let tasks = this.http.get(this.url + 'GetEvents').map((res) => res.json());
         return tasks;
+    }
+    addTask(task) {
+        let header = new http_2.Headers({ 'Content-Type': 'application/json' });
+        let body = JSON.stringify(task);
+        let respo = this.http.post(this.url + 'AddEvent' /*"https://requestb.in/yhldxsyh"*/, body, { headers: header }).map((res) => JSON.stringify(res.json()));
+        return respo;
     }
 };
 HttpService = __decorate([
@@ -29,7 +36,7 @@ exports.HttpService = HttpService;
 class Task {
     constructor(Id, ListId, Text) {
         this.ListId = ListId;
-        this.Id = Id;
+        this.Id = null;
         this.Text = Text;
     }
 }

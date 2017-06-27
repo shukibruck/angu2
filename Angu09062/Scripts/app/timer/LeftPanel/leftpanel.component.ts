@@ -36,7 +36,9 @@ export class LeftPanel {
         this.service.allTasks().subscribe(data => this.getData = data,
             error => alert(error),
             () => {
-                this.listCount = Array(this.getData.length).fill(1).map((x, i) => i);
+                let arr = Array.from(new Set(this.getData.map(x => x.ListId)));
+
+                this.listCount = Array(arr.length).fill(1).map((x, i) => i);
             }
         );
         

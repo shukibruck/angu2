@@ -23,7 +23,16 @@ export class ListValues {
         );
 
     }
-   
+    text: string;
+    addEvent() {
+        let task = new Task(null, 3, 'text');
+        this.service.addTask(task).subscribe(data => console.log("udalo się " + data),
+            error => console.log("chuja sie udalo" + error),
+            () => {
+                console.log(this.text);
+            }
+        );
+    }
     ngOnInit() {
         this.listAfterFilter = this.list.filter(x => x.ListId == this.id);
     }
@@ -35,8 +44,6 @@ export class ListValues {
 
     ngOnChanges() {
         this.listAfterFilter = this.list.filter(x => x.ListId == this.id);
-        console.log(this.listAfterFilter);
-        console.log("idee " + this.id);
     }
 
     restartCounter() {
@@ -47,11 +54,20 @@ export class ListValues {
             this.restart.emit(this.status);
             this.status = "true";
         }
-        console.log("->>>"+this.id);
     }
 
     addToList() {
-        //this.list.push(new Task(this.topic, this.val));
+        let task = new Task(null, this.id, this.topic);
+        this.list.push(task);
+        this.service.addTask(new Task(null, this.id, this.topic)).subscribe(data => console.log("udalo się " + data),
+            error => console.log("chuja sie udalo" + error),
+            () => {
+                //console.log("topic" + this.topic);
+                //let task = new Task(null, this.id, this.topic);
+                //this.list.push(task);
+                //console.log(task);
+            }
+        );
         this.added.emit(null);
     }
 }

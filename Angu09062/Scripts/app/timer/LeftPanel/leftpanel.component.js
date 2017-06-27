@@ -18,10 +18,10 @@ let LeftPanel = class LeftPanel {
         this.stateNow = 'show';
         this.tempDiv = 1;
         this.getData = [];
-        //@Output() id: EventEmitter<number> = new EventEmitter<number>();
         this.id = 1;
         this.service.allTasks().subscribe(data => this.getData = data, error => alert(error), () => {
-            this.listCount = Array(this.getData.length).fill(1).map((x, i) => i);
+            let arr = Array.from(new Set(this.getData.map(x => x.ListId)));
+            this.listCount = Array(arr.length).fill(1).map((x, i) => i);
         });
     }
     toggle() {

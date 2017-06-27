@@ -3,4 +3,5 @@
     <button class="btn btn-danger" (click)="restartCounter()">Restart</button>
 </div>
 <br/>
-<div class="well" *ngFor="let task of listAfterFilter">{{task.Text}} {{task.time}}</div>
+<div class="well" *ngFor="let task of listAfterFilter">{{task.Text}}</div>
+<button class="btn btn-danger" (click)="addEvent()">AddTestEvent</button>
