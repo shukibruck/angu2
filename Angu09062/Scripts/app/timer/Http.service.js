@@ -22,9 +22,15 @@ let HttpService = class HttpService {
         return tasks;
     }
     addTask(task) {
+        return this.corePost(task, 'AddEvent');
+    }
+    editTask(task) {
+        return this.corePost(task, 'EditEvent');
+    }
+    corePost(task, path) {
         let header = new http_2.Headers({ 'Content-Type': 'application/json' });
         let body = JSON.stringify(task);
-        let respo = this.http.post(this.url + 'AddEvent' /*"https://requestb.in/yhldxsyh"*/, body, { headers: header }).map((res) => JSON.stringify(res.json()));
+        let respo = this.http.post(this.url + path, body, { headers: header }).map((res) => JSON.stringify(res.json()));
         return respo;
     }
 };
@@ -34,10 +40,11 @@ HttpService = __decorate([
 ], HttpService);
 exports.HttpService = HttpService;
 class Task {
-    constructor(Id, ListId, Text) {
+    constructor(Id, ListId, Text, Status) {
         this.ListId = ListId;
         this.Id = null;
         this.Text = Text;
+        this.Status = Status;
     }
 }
 exports.Task = Task;

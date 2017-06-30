@@ -11,7 +11,10 @@ namespace Angu09062.Controllers
 {
     public class WebApiController : ApiController
     {
-
+        /// <summary>
+        /// Gets the events.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("WebApi/GetEvents")]
         public IHttpActionResult GetEvents()
@@ -24,6 +27,12 @@ namespace Angu09062.Controllers
 
             return Ok(result);
         }
+
+        /// <summary>
+        /// Adds the events.
+        /// </summary>
+        /// <param name="task">The task.</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("WebApi/AddEvent")]
         public IHttpActionResult AddEvents([FromBody] Tasks task)
@@ -43,6 +52,33 @@ namespace Angu09062.Controllers
             return BadRequest("Nie mogło dodać do bazy " + result);
         }
 
+        /// <summary>
+        /// Edits the event.
+        /// </summary>
+        /// <param name="task">The task.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("WebApi/EditEvent")]
+        public IHttpActionResult EditEvent([FromBody] Tasks task)
+        {
+            
+            using (var context = new RepositoryContex())
+            {
+                var taskToChange = context.Tasks.Find(task.Id);
+                if (taskToChange == null)
+                {
+                    return BadRequest("Task nie zostal odnaleziony id:" + task.Id);
+                }
+                taskToChange.Status = task.Status;
+                var result = context.SaveChanges();
 
+                if (result == 1)
+                {
+                    return Ok(result);
+                }
+                return BadRequest("Nie mogło dodać do bazy " + result);
+
+            }
+        }
     }
 }

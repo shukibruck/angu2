@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { Timer } from "./timer.component";
 import { ListValues } from "./listValues/listValues.component";
+import { EditTask } from "./listValues/EditTask/editTask.component"
 
 @NgModule({
     imports: [CommonModule, FormsModule],
-    declarations: [Timer, ListValues],
+    declarations: [Timer, ListValues, EditTask],
     exports: [Timer],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -224,6 +224,10 @@
     <Compile Include="Migrations\201706231033398_AddKey.Designer.cs">
       <DependentUpon>201706231033398_AddKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706280909106_status.cs" />
+    <Compile Include="Migrations\201706280909106_status.Designer.cs">
+      <DependentUpon>201706280909106_status.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -241,6 +245,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\app\manview.html" />
     <Content Include="Scripts\app\timer\LeftPanel\leftpanel.html" />
+    <Content Include="Scripts\app\timer\listValues\EditTask\EditTask.html" />
     <Content Include="Scripts\app\timer\listValues\listValues.html" />
     <Content Include="Scripts\app\timer\timer.html" />
     <Content Include="Scripts\bootstrap.js" />
@@ -316,6 +321,7 @@
     <TypeScriptCompile Include="Scripts\app\main.ts" />
     <TypeScriptCompile Include="Scripts\app\timer\LeftPanel\leftpanel.component.ts" />
     <TypeScriptCompile Include="Scripts\app\timer\LeftPanel\leftpanel.module.ts" />
+    <TypeScriptCompile Include="Scripts\app\timer\listValues\EditTask\editTask.component.ts" />
     <TypeScriptCompile Include="Scripts\app\timer\listValues\listValues.component.ts" />
     <TypeScriptCompile Include="Scripts\app\timer\timer.component.ts" />
     <TypeScriptCompile Include="Scripts\app\timer\timer.module.ts" />
@@ -329,6 +335,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706231033398_AddKey.resx">
       <DependentUpon>201706231033398_AddKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706280909106_status.resx">
+      <DependentUpon>201706280909106_status.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

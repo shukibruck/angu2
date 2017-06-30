@@ -11,12 +11,13 @@ const common_1 = require("@angular/common");
 const forms_1 = require("@angular/forms");
 const timer_component_1 = require("./timer.component");
 const listValues_component_1 = require("./listValues/listValues.component");
+const editTask_component_1 = require("./listValues/EditTask/editTask.component");
 let TimerComponentModule = class TimerComponentModule {
 };
 TimerComponentModule = __decorate([
     core_1.NgModule({
         imports: [common_1.CommonModule, forms_1.FormsModule],
-        declarations: [timer_component_1.Timer, listValues_component_1.ListValues],
+        declarations: [timer_component_1.Timer, listValues_component_1.ListValues, editTask_component_1.EditTask],
         exports: [timer_component_1.Timer],
         schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
     })

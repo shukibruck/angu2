@@ -14,6 +14,7 @@ namespace Angu09062.DAL
         public int Id { get; set; }
         public string Text { get; set; }
         public int ListId { get; set; }
+        public byte Status { get; set; }
     }
 
 

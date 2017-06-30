@@ -1,7 +1,14 @@
-﻿<div class="btn-group" style="margin-bottom: 10px">
-    <button class="btn btn-primary" (click)="addToList()">Stop</button>
-    <button class="btn btn-danger" (click)="restartCounter()">Restart</button>
+﻿<div class="btn-group" style="margin-bottom: 3px">
+    <button class="btn btn-primary" (click)="addToList()">Add</button>
+    <button class="btn btn-warning" (click)="restartCounter()">Restart</button>
+    <button class="btn btn-success" (click)="showDoneTasks()">Done</button>
+    <button class="btn btn-danger" (click)="showToDo()">ToDo</button>
+    <button class="btn btn-default" (click)="showAllTasks()">All</button>
 </div>
-<br/>
-<div class="well" *ngFor="let task of listAfterFilter">{{task.Text}}</div>
-<button class="btn btn-danger" (click)="addEvent()">AddTestEvent</button>
+<br />
+<input type="text" class="form-control" placeholder="Search" [(ngModel)]="predic" style="margin-bottom: 10px" />
+<div class="well" *ngFor="let task of listAfterFilter" (dblclick)="openModal(task)" [ngStyle]="styleDoneTask(task)">
+    <input type="checkbox" [checked]="task.Status"  (change)="changeStatus(task)"  />
+    {{task.Text}}
+</div>
+<ngEditTask></ngEditTask>

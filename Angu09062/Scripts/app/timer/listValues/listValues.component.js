@@ -11,29 +11,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const Http_service_1 = require("../Http.service");
+const editTask_component_1 = require("./EditTask/editTask.component");
 let ListValues = class ListValues {
     constructor(service) {
         this.service = service;
         this.list = [];
         this.listAfterFilter = [];
+        this.doneOrAll = true;
+        this.predic = "";
         this.restart = new core_1.EventEmitter();
         this.added = new core_1.EventEmitter();
         this.status = "true";
         this.service.allTasks().subscribe(data => this.list = data, error => alert(error), () => {
-            console.log(this.list);
-        });
-    }
-    addEvent() {
-        let task = new Http_service_1.Task(null, 3, 'text');
-        this.service.addTask(task).subscribe(data => console.log("udalo się " + data), error => console.log("chuja sie udalo" + error), () => {
-            console.log(this.text);
+            this.listAfterFilter = this.list.filter(x => x.ListId == this.id);
         });
     }
     ngOnInit() {
         this.listAfterFilter = this.list.filter(x => x.ListId == this.id);
     }
+    openModal(task) {
+        this.editTask.showModal(task);
+    }
     ngOnChanges() {
-        this.listAfterFilter = this.list.filter(x => x.ListId == this.id);
+        if (this.doneOrAll == null) {
+            this.listAfterFilter = this.list.filter(task => task.Status === 0 &&
+                task.ListId === this.id &&
+                task.Text.toLocaleLowerCase().includes(this.predic.toLocaleLowerCase()));
+        }
+        else {
+            this.listAfterFilter = this.doneOrAll ? this.list.filter(x => x.ListId == this.id && x.Text.toLocaleLowerCase().includes(this.predic.toLocaleLowerCase())) : this.list.filter(task => task.Status === 1 && task.ListId === this.id && task.Text.toLocaleLowerCase().includes(this.predic.toLocaleLowerCase()));
+        }
     }
     restartCounter() {
         if (this.status == "true") {
@@ -46,17 +53,49 @@ let ListValues = class ListValues {
         }
     }
     addToList() {
-        let task = new Http_service_1.Task(null, this.id, this.topic);
-        this.list.push(task);
-        this.service.addTask(new Http_service_1.Task(null, this.id, this.topic)).subscribe(data => console.log("udalo się " + data), error => console.log("chuja sie udalo" + error), () => {
-            //console.log("topic" + this.topic);
-            //let task = new Task(null, this.id, this.topic);
-            //this.list.push(task);
-            //console.log(task);
+        let task = new Http_service_1.Task(null, this.id, this.topic + " " + this.val, 0);
+        this.service.addTask(task).subscribe(data => console.log("udalo się " + data), error => console.log("chuja sie udalo" + error), () => {
+            console.log("topic" + task.Text);
+            this.list.unshift(task);
         });
         this.added.emit(null);
     }
+    editEvent(id, status) {
+    }
+    showDoneTasks() {
+        this.doneOrAll = false;
+        console.log(" showDoneTasks " + this.doneOrAll);
+    }
+    showAllTasks() {
+        this.doneOrAll = true;
+        console.log(" showAllTasks " + this.doneOrAll);
+    }
+    showToDo() {
+        this.doneOrAll = null;
+        console.log(" showToDo " + this.doneOrAll);
+    }
+    changeBackground() {
+        return { 'background-color': 'green' };
+    }
+    styleDoneTask(task) {
+        if (task.Status === 1) {
+            return { 'border-color': '#4fc528' };
+        }
+    }
+    changeStatus(task) {
+        if (task.Status === 0) {
+            task.Status = 1;
+        }
+        else {
+            task.Status = 0;
+        }
+        this.service.editTask(task).subscribe(data => console.log(data), error => console.log("cos neee tak " + error), () => { });
+    }
 };
+__decorate([
+    core_1.ViewChild(editTask_component_1.EditTask),
+    __metadata("design:type", editTask_component_1.EditTask)
+], ListValues.prototype, "editTask", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", String)
