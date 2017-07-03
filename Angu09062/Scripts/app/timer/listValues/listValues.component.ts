@@ -1,6 +1,7 @@
 ﻿import { Component, ViewEncapsulation, Output, Input, EventEmitter, ViewChild } from '@angular/core';
 import { HttpService, Task } from "../Http.service"
-import {EditTask} from "./EditTask/editTask.component";
+import { EditTask } from "./EditTask/editTask.component";
+import { Observable } from 'rxjs/Rx';
 
 @Component({
     selector: 'ng-listValues',
@@ -16,10 +17,12 @@ export class ListValues {
     doneOrAll: boolean = true;
     predic: string = "";
     @ViewChild(EditTask) editTask: EditTask;
+    @Output() taskToEdit2: Observable<Task>;
+    taskEdVal: Task = new Task(1, 1, "", 1);
+
+    taskToEdit: Observable<Task>;
 
 
-
-    
 
     constructor(private service: HttpService) {
         this.status = "true";
@@ -41,8 +44,20 @@ export class ListValues {
     @Output() restart: EventEmitter<string> = new EventEmitter<string>();
     @Output() added: EventEmitter<any> = new EventEmitter();
 
-    openModal(task: Task) {
+    openModal(task: Task): Observable<Task> {
+        this.taskToEdit = this.retrunObs();
+        console.log("from parent bse");
+        console.dir(this.taskToEdit);
+        this.taskEdVal = task;
         this.editTask.showModal(task);
+
+        return this.taskToEdit2;
+    }
+
+    retrunObs(): Observable<Task> {
+
+        this.taskToEdit2 = new Observable<Task>(obs => { obs.emit(this.taskEdVal) });
+        return this.taskToEdit2;
     }
 
     ngOnChanges() {

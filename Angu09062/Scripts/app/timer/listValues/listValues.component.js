@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const Http_service_1 = require("../Http.service");
 const editTask_component_1 = require("./EditTask/editTask.component");
+const Rx_1 = require("rxjs/Rx");
 let ListValues = class ListValues {
     constructor(service) {
         this.service = service;
@@ -19,6 +20,7 @@ let ListValues = class ListValues {
         this.listAfterFilter = [];
         this.doneOrAll = true;
         this.predic = "";
+        this.taskEdVal = new Http_service_1.Task(1, 1, "", 1);
         this.restart = new core_1.EventEmitter();
         this.added = new core_1.EventEmitter();
         this.status = "true";
@@ -30,7 +32,16 @@ let ListValues = class ListValues {
         this.listAfterFilter = this.list.filter(x => x.ListId == this.id);
     }
     openModal(task) {
+        this.taskToEdit = this.retrunObs();
+        console.log("from parent bse");
+        console.dir(this.taskToEdit);
+        this.taskEdVal = task;
         this.editTask.showModal(task);
+        return this.taskToEdit2;
+    }
+    retrunObs() {
+        this.taskToEdit2 = new Rx_1.Observable(obs => { obs.emit(this.taskEdVal); });
+        return this.taskToEdit2;
     }
     ngOnChanges() {
         if (this.doneOrAll == null) {
@@ -96,6 +107,10 @@ __decorate([
     core_1.ViewChild(editTask_component_1.EditTask),
     __metadata("design:type", editTask_component_1.EditTask)
 ], ListValues.prototype, "editTask", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", Rx_1.Observable)
+], ListValues.prototype, "taskToEdit2", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", String)

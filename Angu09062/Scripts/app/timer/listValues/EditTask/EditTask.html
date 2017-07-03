@@ -9,9 +9,10 @@
             </div>
             <div class="modal-body">
                 <!--<input type="checkbox" [checked]="task.Status" />-->
-                <input type="text" [value]="task.Text"/>
+                <input type="text" id="setText" [value]="taskToEdit?.Text"/>
             </div>
             <div class="modal-footer">
+                
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
             </div>

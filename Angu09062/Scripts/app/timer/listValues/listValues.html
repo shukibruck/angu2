@@ -11,4 +11,4 @@
     <input type="checkbox" [checked]="task.Status"  (change)="changeStatus(task)"  />
     {{task.Text}}
 </div>
-<ngEditTask></ngEditTask>
+<ngEditTask [(taskToEdit)]="taskToEdit"></ngEditTask>
